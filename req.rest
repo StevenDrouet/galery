@@ -1,0 +1,29 @@
+@link = http://127.0.0.1:4242/api
+
+@username = test
+@email = test@test.fr
+@password = test
+
+###
+GET {{link}}/photos
+Content-Type: application/json
+
+###
+POST {{link}}/photos/
+Content-Type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW
+
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="text"
+
+name
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="name"; text="adeline"
+Content-Type: application/json
+
+photo
+------WebKitFormBoundary7MA4YWxkTrZu0gW
+Content-Disposition: form-data; name="photo"; filename="/Users/arkadastudio/Downloads/PNJ/Adeline.png"
+Content-Type: image/png
+
+< /Users/arkadastudio/Downloads/PNJ/Adeline.png
+------WebKitFormBoundary7MA4YWxkTrZu0gW--

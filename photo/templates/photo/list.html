@@ -1,0 +1,124 @@
+{% extends 'base.html' %}
+
+{% block title %}Photo List{% endblock %}
+
+{% block content %}
+  <h2>Photos</h2>
+
+  <!-- Bouton "Ajouter une photo" au-dessus du tableau -->
+  <div style="text-align: center; margin-bottom: 10px;">
+    <a href="{% url 'upload' %}" class="button-add">Ajouter une photo</a>
+  </div>
+
+  <!-- Bouton de tri dynamique -->
+  <div style="text-align: center; margin-bottom: 10px;">
+    {% if sort == 'recent' %}
+      <a href="?sort=oldest" class="button-sort">Trier par ordre décroissant</a>
+    {% else %}
+      <a href="?sort=recent" class="button-sort">Trier par ordre croissant</a>
+    {% endif %}
+  </div>
+
+  <table class="photo-table">
+    <thead>
+      <tr>
+        <th>Nom</th>
+        <th>Image</th>
+        <th>Uploaded At</th>
+        <th>Éditer</th>
+        <th>Supprimer</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% if object_list %}
+        {% for photo in object_list %}
+        <tr>
+          <td>{{ photo.name }}</td>
+          <td><img src="{{ photo.photo.url }}" alt="{{ photo.name }}" style="max-width: 300px;"></td>
+          <td>{{ photo.uploaded_at|date:"d/m/Y H:i:s" }}</td>
+          <td>
+            <a href="{% url 'edit' photo.pk %}" class="button-edit">Éditer</a>
+          </td>
+          <td>
+            <a href="{% url 'delete' photo.pk %}" class="button-delete">Supprimer</a>
+          </td>
+        </tr>
+        {% endfor %}
+      {% else %}
+        <tr>
+          <td colspan="5" style="text-align: center; padding: 20px;">
+            Aucun élément. <a href="{% url 'upload' %}" class="button-add">Ajouter une photo ici</a>
+          </td>
+        </tr>
+      {% endif %}
+    </tbody>
+  </table>
+
+  <style>
+    /* Centrer le tableau */
+    .photo-table {
+      width: 80%;
+      margin: 0 auto;
+      border-collapse: collapse;
+    }
+
+    /* Style des cellules et en-têtes */
+    .photo-table th, .photo-table td {
+      border: 1px solid #ddd;
+      padding: 8px;
+      text-align: center;
+    }
+
+    /* Style de l’en-tête */
+    .photo-table th {
+      background-color: #f2f2f2;
+      font-weight: bold;
+    }
+
+    /* Ajuster la largeur de la colonne des images */
+    .photo-table th:nth-child(2),
+    .photo-table td:nth-child(2) {
+      width: 50%;
+    }
+
+    /* Image plus grande */
+    .photo-table img {
+      max-width: 90%;
+      height: auto;
+      border-radius: 5px;
+    }
+
+    /* Styles pour les boutons */
+    .button-edit, .button-delete, .button-add, .button-sort {
+      padding: 5px 10px;
+      text-decoration: none;
+      color: #fff;
+      border-radius: 5px;
+      margin-left: 5px;
+    }
+    .button-edit {
+      background-color: #4CAF50;
+    }
+    .button-delete {
+      background-color: #f44336;
+    }
+    .button-add {
+      background-color: #2196F3;
+    }
+    .button-sort {
+      background-color: #FF9800;
+    }
+    .button-delete:hover {
+      background-color: #d32f2f;
+    }
+    .button-edit:hover {
+      background-color: #388e3c;
+    }
+    .button-add:hover {
+      background-color: #1976D2;
+    }
+    .button-sort:hover {
+      background-color: #FB8C00;
+    }
+  </style>
+{% endblock %}

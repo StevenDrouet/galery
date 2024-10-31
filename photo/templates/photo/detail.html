@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+
+{% block title %}Photo Detail{% endblock %}
+
+{% block content %}
+  <h2>{{ object.name }}</h2>
+  <img src="{{ object.photo.url }}" alt="{{ object.name }}" style="max-width: 500px;">
+  <p>Uploaded at: {{ object.uploaded_at }}</p>
+  <a href="{% url 'edit' object.pk %}">Edit</a> |
+  <a href="{% url 'delete' object.pk %}">Delete</a> |
+  <a href="{% url 'list' %}">Back to list</a>
+{% endblock %}
